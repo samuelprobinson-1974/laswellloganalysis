@@ -1,0 +1,7 @@
+dash==2.10.2
+plotly
+lasio
+pandas
+numpy
+numexpr
+gunicorn
