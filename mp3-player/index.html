@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Onebit VFD Player</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Device shell -->
+  <div class="device" id="device">
+    <div class="screen" id="screen">
+      <div class="scanlines" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <!-- Status bar (Rockbox statusbar style) -->
+      <div class="statusbar" id="statusbar">
+        <span class="sb-left">
+          <span class="ic-play" id="sbState">&#9646;&#9646;</span>
+        </span>
+        <span class="sb-mid" id="sbTitle">ONEBIT&nbsp;VFD</span>
+        <span class="sb-right">
+          <span id="sbClock">--:--</span>
+          <span class="battery" id="sbBattery"><i></i></span>
+        </span>
+      </div>
+
+      <!-- View: NOW PLAYING (WPS) -->
+      <section class="view view-wps active" id="view-wps">
+        <div class="albumart" id="albumart">
+          <div class="art-fallback" id="artFallback">&#9834;</div>
+          <img id="artImg" alt="" hidden />
+        </div>
+        <div class="wps-meta">
+          <div class="marquee" id="wpsTitleWrap"><span id="wpsTitle">NO TRACK LOADED</span></div>
+          <div class="wps-sub" id="wpsArtist">&mdash;</div>
+          <div class="wps-sub dim" id="wpsAlbum">&mdash;</div>
+        </div>
+
+        <div class="progress" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-knob" id="progressKnob"></div>
+        </div>
+        <div class="times">
+          <span id="tElapsed">0:00</span>
+          <span id="tIndex" class="dim">0 / 0</span>
+          <span id="tTotal">0:00</span>
+        </div>
+
+        <div class="wps-flags">
+          <span class="flag" id="flagShuffle">SHUF</span>
+          <span class="flag" id="flagRepeat">RPT</span>
+          <span class="flag" id="flagVol">VOL 80</span>
+        </div>
+      </section>
+
+      <!-- View: MENU / BROWSER -->
+      <section class="view view-list" id="view-menu">
+        <div class="list-title">&#9654; MAIN MENU</div>
+        <ul class="list" id="menuList"></ul>
+      </section>
+
+      <!-- View: LIBRARY -->
+      <section class="view view-list" id="view-library">
+        <div class="list-title" id="libTitle">&#9654; LIBRARY</div>
+        <ul class="list" id="libraryList"></ul>
+      </section>
+
+      <!-- View: PLAYLISTS -->
+      <section class="view view-list" id="view-playlists">
+        <div class="list-title">&#9654; PLAYLISTS</div>
+        <ul class="list" id="playlistList"></ul>
+      </section>
+
+      <!-- View: SINGLE PLAYLIST -->
+      <section class="view view-list" id="view-playlist">
+        <div class="list-title" id="plTitle">&#9654; PLAYLIST</div>
+        <ul class="list" id="playlistTracks"></ul>
+      </section>
+
+      <!-- View: QUEUE (now playing list) -->
+      <section class="view view-list" id="view-queue">
+        <div class="list-title">&#9654; NOW PLAYING</div>
+        <ul class="list" id="queueList"></ul>
+      </section>
+
+      <!-- View: SETTINGS -->
+      <section class="view view-list" id="view-settings">
+        <div class="list-title">&#9654; SETTINGS</div>
+        <ul class="list" id="settingsList"></ul>
+      </section>
+    </div>
+
+    <!-- Hardware buttons -->
+    <div class="pad">
+      <button class="btn btn-menu" id="btnMenu" title="Menu">MENU</button>
+      <div class="dpad">
+        <button class="btn btn-up" id="btnUp" title="Scroll up">&#9650;</button>
+        <div class="dpad-mid">
+          <button class="btn btn-left" id="btnPrev" title="Previous">&#9664;&#9664;</button>
+          <button class="btn btn-select" id="btnSelect" title="Play / Select">&#9654;&#10073;&#10073;</button>
+          <button class="btn btn-right" id="btnNext" title="Next">&#9654;&#9654;</button>
+        </div>
+        <button class="btn btn-down" id="btnDown" title="Scroll down">&#9660;</button>
+      </div>
+      <button class="btn btn-back" id="btnBack" title="Back">BACK</button>
+    </div>
+  </div>
+
+  <!-- Hidden file input -->
+  <input type="file" id="fileInput" accept="audio/*,.mp3,.m4a,.aac,.ogg,.oga,.wav,.flac,.opus" multiple hidden />
+
+  <!-- Audio element -->
+  <audio id="audio" preload="metadata"></audio>
+
+  <!-- Toast / dialog -->
+  <div class="toast" id="toast" hidden></div>
+  <div class="modal" id="modal" hidden>
+    <div class="modal-box">
+      <div class="modal-title" id="modalTitle">TITLE</div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

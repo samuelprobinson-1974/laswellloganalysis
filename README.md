@@ -23,3 +23,18 @@ python app.py
 5. Choose the free tier.
 
 Your app will be live at https://your-app-name.onrender.com
+
+---
+
+## Onebit VFD Player (mobile MP3 player)
+
+This repo also contains a standalone, client-side **MP3 player** styled after
+the Rockbox Onebit / VFD theme, built for smartphone screens. It plays local
+audio files and lets you create and save playlists — entirely on-device.
+
+See [`mp3-player/`](mp3-player/README.md) for details. It's a static site:
+
+```bash
+cd mp3-player
+python3 -m http.server 8000   # then open http://localhost:8000
+```
