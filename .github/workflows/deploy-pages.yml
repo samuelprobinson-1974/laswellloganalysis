@@ -1,0 +1,47 @@
+name: Deploy Onebit VFD Player to GitHub Pages
+
+# Publishes the mp3-player/ folder as the site so the PWA is served over
+# HTTPS — required to install it to a phone home screen and for the service
+# worker (offline support) to register.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mp3-player/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; let in-progress runs finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload player as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: mp3-player
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
