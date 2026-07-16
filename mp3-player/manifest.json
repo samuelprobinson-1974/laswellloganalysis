@@ -1,0 +1,15 @@
+{
+  "name": "Onebit VFD Player",
+  "short_name": "VFD Player",
+  "description": "Rockbox Onebit / VFD-styled MP3 player. Plays local files and saves playlists — entirely on your device.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
